@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevJobs - Mural de Vagas de TI</title>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <h1 class="logo">Dev <span>Jobs</span></h1>
+        <p class="tagline">Encontre sua próxima vaga em tecnologia</p>
+    </div>
+</header>
+
+<main class="main">
+    <section class="search-section container">
+        <label for="busca">Buscar Vagas</label>
+        <input type="search" class="busca" placeholder="Ex: React, Node, Remoto ...">
+    </section>
+
+    <section class="job-section container">
+        <h2 class="sr-only">Lista de Vagas</h2>
+        <div class="jobs-grid">
+            <!-- deixa esse lugar para depois armazenar os cards de vagas-->
+             <!--Card 1 de vaga-->
+             <article class="job-card">
+                <div class="job-card__header">
+                    <span class="job-card__badge job-card__badge--remoto"></span>
+                    <h3 class="job-card__tittle">Desenvolvedor Frontend React</h3>
+                    <p class="job-card__campany">Empresa Simulada</p>
+                </div>
+                <div class="job-card__body">
+                    <p class="job-card__tech">React - TypeScript - CSS</p>
+                    <p class="job-card__salary">R$ 6.000 - R$ 9.000</p>
+                    <p class="job-card__location">Remoto - BR</p>
+                </div>
+                <div class="job-card__footer">
+                    <button type="button" class="btn--primary">Ver detalhes</button>
+                </div>
+             </article>
+             <!--Coloque um novo card de vaga aqui-->
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 DevJobs - Projeto Ling Prog Internet Uniube</p>
+    </div>
+</footer>
+    
+</body>
+</html>
