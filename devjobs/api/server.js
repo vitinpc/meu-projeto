@@ -22,3 +22,8 @@ app.listen(PORT, () => {
 
 const vagasRoutes = require('./routes/vagas.routes');
 app.use('/api/vagas', vagasRoutes);
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ erro: 'Erro interno do servidor' });
+});
