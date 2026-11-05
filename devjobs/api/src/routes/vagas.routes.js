@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 const db = require('../database/db');
+const auth = require('../middleware/auth.middleware');
 
 router.get('/', (req, res) => {
     try {
@@ -18,10 +19,11 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
-    const { titulo, empresa_id, tipo, tecnologias, salario, cep, cidade, estado, descricao } = req.body;
+router.post('/', auth, (req, res) => {
+    const { titulo, tipo, tecnologias, salario, cep, cidade, estado, descricao } = req.body;
+    const empresa_id = req.empresa.id;
 
-    if(!titulo || !empresa_id || !tipo || !tecnologias || !salario || !cep || !cidade || !estado || !descricao) {
+    if(!titulo || !tipo || !tecnologias || !salario || !cep || !cidade || !estado || !descricao) {
         return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
     }
 
@@ -30,7 +32,7 @@ router.post('/', (req, res) => {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(titulo, empresa_id, tipo, tecnologias.join(', '), salario, cep, cidade, estado, descricao);
     const novaVaga = db.prepare('SELECT * FROM vagas WHERE id = ?').get(result.lastInsertRowid);
-    res.status(201).json({ message: 'Vaga criada com sucesso' });
+    res.status(201).json(novaVaga);
 
 });
 
@@ -70,9 +72,9 @@ router.put('/:id', (req, res) => {
         const atualizada = db.prepare('SELECT * FROM vagas WHERE id = ?').get(id);
         res.json(atualizada);
     });
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
     const {id} = req.params;
-    const existente = db.prepare('SELECT * FROM vagas WHERE id = ?').run(id);
+    const result = db.prepare('DELETE FROM vagas WHERE id = ?').run(id);
 
     if (result.changes === 0) {
         return res.status(404).json({ error: 'Vaga não encontrada' });
